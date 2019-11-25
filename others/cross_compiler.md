@@ -66,11 +66,11 @@ sudo apt-get install lsb-core
         - 进入该 `coe_file` 目录
         - 编辑 inst_rom.S
 
-        ![](../img/others/p1.png)
+        ![](../img/others/p1.jpg)
         
         - 编辑完汇编代码之后，在该目录执行 make 命令，无报错则编译成功
         
-        ![](../img/others/p2.png)
+        ![](../img/others/p2.jpg)
         
         - 查看同目录下的 `inst_rom.coe` 文件即为生成文件，包含所需指令。
         - 若出现 `./bin2coe.py: Permission denied` 错误使用如下命令解决
