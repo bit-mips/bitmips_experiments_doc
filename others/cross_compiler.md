@@ -58,16 +58,20 @@ sudo apt-get install lsb-core
     - Mars 是一个可执行 jar 包，运行之后可以在其编辑区域编写 MIPS 汇编代码，之后可以利用该软件来生成相应的指令的16进制编码。（貌似不能导出，只能复制粘贴？）
 
 - 通过交叉编译工具链来生成
-    - 当使用交叉编译工具链时，指令码的生成就尤其灵活，由于交叉编译工具链及其强大，可以先编写汇编或 C 代码，然后经工具编译及相关操作，最后生成指令编码。通常使用过程中可配合 makefile 和链接脚本使用。下面介绍通过汇编生成指令编码。
-    - 一般，我们会将汇编代码转换为 coe 格式文件，之后将 coe 文件加载至 ip 核使用。关于 coe 文件介绍见本文最后。coe 文件的内容即是一系列的指令编码构成。通过 [coe](https://github.com/bit-mips/bitmips_experiments/tree/master/tools/coe%20tool) 工具可以很方便生成。
+    - 当使用交叉编译工具链时，指令码的生成就尤其灵活，由于交叉编译工具链及其强大，可以先编写汇编或 C 代码，然后经工具编译及相关操作，最后生成指令编码。通常使用过程中可配合 makefile 和链接脚本使用。下面介绍通过汇编代码和 [coe](https://github.com/bit-mips/bitmips_experiments/tree/master/tools/coe%20tool) 工具生成指令编码。
+    - 一般，我们会将汇编代码转换为 coe 格式文件，之后将 coe 文件加载至 ip 核使用。关于 coe 文件介绍见本文最后。coe 文件的内容即是一系列的指令编码构成。通过 coe 工具可以很方便生成。
     - 该 coe 工具使用介绍如下：
         - 安装龙芯杯大赛提供的交叉编译工具链
         - 将上述压缩包在 linux 环境下解压
         - 进入该 `coe_file` 目录
         - 编辑 inst_rom.S
+
         ![](../img/others/p1.png)
+        
         - 编辑完汇编代码之后，在该目录执行 make 命令，无报错则编译成功
+        
         ![](../img/others/p2.png)
+        
         - 查看同目录下的 `inst_rom.coe` 文件即为生成文件，包含所需指令。
         - 若出现 `./bin2coe.py: Permission denied` 错误使用如下命令解决
         ```
