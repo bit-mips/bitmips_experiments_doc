@@ -47,7 +47,7 @@ sudo apt-get install lsb-core
     - 上述的方式很简单，在编写几条指令时行之有效，但是需要批量的指令，且指令单一（仅若干比特位不同）时就不太奏效。此时可以使用 python 等脚本语言编写。
     - 示例：
     ```
-    # rt我为整数，imm16为16进制字符串且格式为 0x**
+    # rt 为整数，imm16 为 16 进制字符串且格式为 0x**
     def lui_gen(rt, imm16):
         return "001111" + "00000" + '{:05b}'.format(rt) + '{:016b}'.format(int(imm16, 16))
 

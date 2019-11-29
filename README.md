@@ -71,7 +71,7 @@ MIPS 相关系列实验主要是针对**计算机系统能力培养**而制定�
 - 其他相关文档
     - ["小霸王"开发板(精工开发板)介绍]()
     - [龙芯开发板介绍]()
-    - [Vivado 使用小技巧]()
+    - [Vivado 使用小技巧](./others/vivado_skill.md)
     - [IP 核介绍](./others/ip.md)
     - [逻辑分析仪使用]()
     - [交叉编译工具链安装使用](./others/cross_compiler.md)
