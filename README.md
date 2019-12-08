@@ -6,7 +6,11 @@
 
 为更好的方便北理工同学完成 MIPS 相关系列实验，特别提供本参考手册，通过本参考手册可以较好的完成相关实验。
 
-具体实验代码仓库如下：[https://github.com/bit-mips/bitmips_experiments](https://github.com/bit-mips/bitmips_experiments)。
+具体实验代码仓库如下：[https://github.com/bit-mips/bitmips_experiments](https://github.com/bit-mips/bitmips_experiments)。请将实验代码克隆至本地
+
+```
+git clone git@github.com:bit-mips/bitmips_experiments.git
+```
 
 MIPS 相关系列实验主要是针对**计算机系统能力培养**而制定的一系列相关实验，通过完成这些实验，逐步"进阶"，最终可以完成一个较完备的 MIPS CPU 的设计，并且可以参加[龙芯杯](http://www.nscscc.org/)比赛。同时，本文档及相关实验也适用于本校的`计算机组成原理课程设计`等课程，如有兴趣可以参考。
 
@@ -69,8 +73,6 @@ MIPS 相关系列实验主要是针对**计算机系统能力培养**而制定�
 
 
 - 其他相关文档
-    - ["小霸王"开发板(精工开发板)介绍]()
-    - [龙芯开发板介绍]()
     - [Vivado 使用小技巧](./others/vivado_skill.md)
     - [IP 核介绍](./others/ip.md)
     - [逻辑分析仪使用]()
