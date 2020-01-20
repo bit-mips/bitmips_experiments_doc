@@ -12,7 +12,7 @@
 
 3. 解压
     ```
-    sudo tar –zxvf gcc-4.3-ls232.tar.gz -C /
+    sudo tar -zxvf gcc-4.3-ls232.tar.gz -C /
     ```
 
 4. 设置环境变量 PATH
