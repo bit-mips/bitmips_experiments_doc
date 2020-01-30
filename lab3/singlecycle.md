@@ -98,9 +98,7 @@ myCPU 模块对外接口如下：
 - 本条指令的执行并不使用到 `alu` 模块，但是 `alu` 模块内部还是会有相关执行，只是最终不使用它的执行结果罢了。
 
 ### 测试用例说明
-测试用例包括两个，都是使用 MIPS 汇编编写，具体代码参看实验代码 [lab3](https://github.com/bit-mips/bitmips_experiments/tree/master/lab3) 下的 soft 目录。如果自己修改了汇编文件，需要使用该链接下的coe生成工具，重新生成coe并例化在DRAM中。
-
-> 在WSL下不能使用32位的编译链编译，[这里](https://github.com/microsoft/WSL/issues/2468)有一个可以解决此问题的方法。如果使用虚拟机则不会出现此问题。
+测试用例包括两个，都是使用 MIPS 汇编编写，具体代码参看实验代码 [lab3](https://github.com/bit-mips/bitmips_experiments/tree/master/lab3) 下的 soft 目录。如果自己修改了汇编文件，需要使用该[链接](https://github.com/bit-mips/bitmips_experiments/tree/master/tools/coe_tool)下的 coe 生成工具，重新生成 coe 并例化在 DRAM 中。
 
 ```
 - lab3
