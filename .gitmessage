@@ -1,0 +1,5 @@
+# <type>(<file>): <msg>
+
+# - type: add, mod, del
+# - file: the file have changed
+# - msg: more info
