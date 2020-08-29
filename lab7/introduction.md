@@ -12,3 +12,5 @@
 
 [Cache 实验指导](./cache.md)
 
+[一个 Cache 数据块组织框架（供参考）](https://github.com/bit-mips/bitmips_experiments/tree/master/lab7/cache%20demo)
+
