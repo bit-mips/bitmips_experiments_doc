@@ -41,22 +41,26 @@ MIPS 架构是一个统一编址的指令集架构，即没有 `IN`、 `OUT` 这
 ### 接口定义
 myCPU 模块对外接口如下：
 
-|信号|方向|位宽|含义|
-|-|-|-|-|
-|rst|input|1|复位信号|
-|clk|input|1|时钟信号|
-|inst_rom_addr|output|32|取指地址|
-|inst_rom_rdata|input|32|取到的指令|
-|data_ram_addr|output|32|访存地址|
-|data_ram_wdata|output|32|访存写数据|
-|data_ram_wen|output|1|访存写使能，置 1 为写使能|
-|data_ram_rdata|input|32|访存读数据|
+| 信号           | 方向   | 位宽 | 含义                      |
+| -              | -      | -    | -                         |
+| rstn           | input  | 1    | 复位信号（低使能）        |
+| clk            | input  | 1    | 时钟信号                  |
+| inst_rom_addr  | output | 32   | 取指地址                  |
+| inst_rom_rdata | input  | 32   | 取到的指令                |
+| data_ram_addr  | output | 32   | 访存地址                  |
+| data_ram_wdata | output | 32   | 访存写数据                |
+| data_ram_wen   | output | 1    | 访存写使能，置 1 为写使能 |
+| data_ram_rdata | input  | 32   | 访存读数据                |
 
-控制信号主要为 `rst` 和 `clk` 信号，其中一个提供复位信号，一个提供时钟信号以同步 CPU。
+控制信号主要为 `rst` 和 `clk` 信号，其中一个提供低使能的复位信号，一个提供时钟信号以同步 CPU。
 
 在取指这一部分有两个信号，`inst_rom_addr` 提供当前需要取出的指令的地址，这是一个 32 位的地址，而 `inst_rom_rdata` 是**同周期**内取回的指令数据，也是 32 位（MIPS 指令是定长指令，都是 32 位）。
 
 在访存部分有如下几个信号，`data_ram_addr` 提供访存的地址，加载和存储指令复用该信号作为访存地址。`data_ram_wdata` 提供存储指令将要存储的数据，当访存指令为加载指令时该信号不起作用。`data_ram_wen` 在访存指令为存储指令时置高电平，表示将写存储器，其他情况置低电平。`data_ram_rdata` 是访存指令为加载指令时**同周期**返回的一个加载数据，即 LW 等指令从存储器中读取到的数据。
+
+下图展示了 LUI, LW, SW 对接口使用情况的波形图。
+
+![](../img/lab3/interface-example-wavedrom.svg)
 
 ### 数据通路
 一个可参考的数据通路如下图所示：

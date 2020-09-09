@@ -1,0 +1,11 @@
+{signal: [
+  {name: 'clk', wave: 'p......'},
+  {name: 'rst', wave: '10.....'},
+  {name: 'inst_rom_addr', wave: 'x.345x.', data:["i_addr_1", "i_addr_2", "i_addr_3"]},
+  {name: 'inst_rom_rdata', wave: 'x.345x.', data: ["LUI","LW", "SW"]},
+  {},
+  {name: 'data_ram_addr', wave: 'x..45x.', data:["d_addr_2","d_addr_3"]},
+  {name: 'data_ram_wen', wave: '0...10.'},
+  {name: 'data_ram_wdata', wave: 'x...5x.', data: ["data_3"]},
+  {name: 'data_ram_rdata', wave: 'x..4x..', data: ["data_2"]},
+], config: {hscale: 3}}
