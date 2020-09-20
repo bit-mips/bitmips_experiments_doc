@@ -29,7 +29,7 @@
 
 在进行实验之前请先阅读相关文档，对本实验的实验代码结构有一定的了解，对一些基本概念有一个认识，之后再根据实验步骤完成相应模块的代码编写。
 
-需要实现的指令如下：
+运行下板测试程序需要实现的指令如下：
 
 - `add`
 - `addu`
@@ -46,6 +46,7 @@
 - `lui`
 - `sll`
 - `srl`
+- `lbu`
 - `sw`
 - `lw`
 - `beq`
@@ -53,7 +54,6 @@
 - `j`
 - `jal`
 - `jr`
-- `jalr`
 
 ## SOC 使用步骤
 
@@ -69,7 +69,7 @@ git clone https://github.com/bit-mips/bitmips_experiments.git
 
 ### 添加你的 CPU 项目
 
-**注意，首先你需要按照[流水线 CPU 顶层接口规范]()修改自己的 CPU 的接口，适配 SOC。**
+**注意，首先你需要按照[流水线 CPU 顶层接口规范](./soc-interface.md)修改自己的 CPU 的接口，适配 SOC。**
 
 在主面板 `Project Manager > Source` 中点击 `＋`，并将满足接口要求的 CPU 文件夹添加到项目中。
 
