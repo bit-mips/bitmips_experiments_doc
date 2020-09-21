@@ -47,7 +47,10 @@ myCPU 模块对外接口如下：
 
 在访存部分有如下几个信号，`data_sram_en` 作为使能，控制 sram 是否读取或写入数据。 `data_sram_addr` 提供访存的地址，加载和存储指令复用该信号作为访存地址。`data_sram_wdata` 提供存储指令将要存储的数据，当访存指令为加载指令时该信号不起作用。`data_sram_wen` 在访存指令为存储指令时置高电平，表示将写存储器，其他情况置低电平。`data_sram_rdata` 是访存指令为加载指令时**延迟一个周期**返回的一个加载数据，即 LW 等指令从存储器中读取到的数据。
 
-下图展示了 LUI, LW, SW 对接口使用情况的波形图。
+下图分别展示了取指，读取数据，写入数据对相应接口的操作（**注意图与图之间并没有关联，本图只是表达同一组接口的信号的延迟情况**）：
 
-![](../img/lab5/wavedrom-svgcontent.svg)
+![](../img/lab5/read_inst.svg)
 
+![](../img/lab5/read_data.svg)
+
+![](../img/lab5/write_data.svg)
