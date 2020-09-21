@@ -46,7 +46,6 @@
 - `lui`
 - `sll`
 - `srl`
-- `lbu`
 - `sw`
 - `lw`
 - `beq`
