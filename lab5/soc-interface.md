@@ -23,34 +23,36 @@ MIPS 架构是一个统一编址的指令集架构，即没有 `IN`、 `OUT` 这
 
 myCPU 模块对外接口如下：
 
-| 信号              | 方向   | 位宽 | 含义                                                                              |
-| -                 | -      | -    | -                                                                                 |
-| resetn            | input  | 1    | 复位信号（低使能）                                                                |
-| clk               | input  | 1    | 时钟信号                                                                          |
-| int               | input  | 6    | 中断信号（高使能，本实验中可以忽略）                                              |
-|                   |        |      |                                                                                   |
-| inst_sram_en      | output | 1    | 指令通道使能                                                                      |
-| inst_sram_wen     | output | 4    | 是否写数据（总为 `4'b0000`）                                                      |
-| inst_sram_addr    | output | 32   | 指令地址                                                                          |
-| inst_sram_wdata   | output | 32   | 写入的数据（不需要）                                                              |
-| inst_sram_rdata   | input  | 32   | 读取的指令                                                                        |
-|                   |        |      |                                                                                   |
-| data_sram_en      | output | 1    | 数据通道使能                                                                      |
-| data_sram_wen     | output | 4    | 写入地址的有效字节，比如 `4'b1111` 表示 32 位全有效、 `4'b0001` 只会写入最低 8 位 |
-| data_sram_addr    | output | 32   | 数据地址                                                                          |
-| data_sram_wdata   | output | 32   | 写入的数据（只有 data_sram_wen 为 1 时有意义）                                    |
-| data_sram_rdata   | input  | 32   | 读取的数据                                                                        |
-|                   |        |      |                                                                                   |
-| debug_wb_pc       | output | 32   | 不需要                                                                            |
-| debug_wb_rf_wen   | output | 32   | 不需要                                                                            |
-| debug_wb_rf_wnum  | output | 32   | 不需要                                                                            |
-| debug_wb_rf_wdata | output | 32   | 不需要                                                                            |
+| 信号              | 方向   | 位宽 | 含义                                                                                                             |
+| -                 | -      | -    | -                                                                                                                |
+| resetn            | input  | 1    | 复位信号（低使能）                                                                                               |
+| clk               | input  | 1    | 时钟信号                                                                                                         |
+| int               | input  | 6    | 中断信号（高使能，本实验中可以忽略）                                                                             |
+|                   |        |      |                                                                                                                  |
+| inst_sram_en      | output | 1    | 指令通道使能                                                                                                     |
+| inst_sram_wen     | output | 4    | 是否写数据（总为 `4'b0000`）                                                                                     |
+| inst_sram_addr    | output | 32   | 指令地址                                                                                                         |
+| inst_sram_wdata   | output | 32   | 写入的数据（不需要）                                                                                             |
+| inst_sram_rdata   | input  | 32   | 读取的指令                                                                                                       |
+|                   |        |      |                                                                                                                  |
+| data_sram_en      | output | 1    | 数据通道使能                                                                                                     |
+| data_sram_wen     | output | 4    | 写入地址的有效字节，比如 `4'b1111` 表示 32 位全有效、 `4'b0001` 只会写入最低 8 位                                |
+| data_sram_addr    | output | 32   | 数据地址                                                                                                         |
+| data_sram_wdata   | output | 32   | 写入的数据（只有 data_sram_wen 为 1 时有意义）                                                                   |
+| data_sram_rdata   | input  | 32   | 读取的数据                                                                                                       |
+|                   |        |      |                                                                                                                  |
+| debug_wb_pc       | output | 32   | 写回级(多周期最后一级)的 PC,因而需要在你的 CPU 里将 PC 一路带到写回级                                            |
+| debug_wb_rf_wen   | output | 32   | 写回级写寄存器堆(regfiles)的写使能,为字节写使能,如果 mycpu 写 regfiles为单字节写使能,则将写使能扩展成 4 位即可。 |
+| debug_wb_rf_wnum  | output | 32   | 写回级写 regfiles 的目的寄存器号                                                                                 |
+| debug_wb_rf_wdata | output | 32   | 写回级写 regfiles 的写数据                                                                                       |
 
 控制信号主要为 `rst` 和 `clk` 信号，其中一个提供低使能的复位信号，一个提供时钟信号以同步 CPU。
 
 在取指这一部分有三个主要信号，`inst_sram_en` 作为使能，控制 sram 是否读取指令。 `inst_sram_addr` 提供当前需要取出的指令的地址，这是一个 32 位的地址，而 `inst_sram_rdata` 是**有一周期延迟**下取回的指令数据，也是 32 位（MIPS 指令是定长指令，都是 32 位）。
 
 在访存部分有如下几个信号，`data_sram_en` 作为使能，控制 sram 是否读取或写入数据。 `data_sram_addr` 提供访存的地址，加载和存储指令复用该信号作为访存地址。`data_sram_wdata` 提供存储指令将要存储的数据，当访存指令为加载指令时该信号不起作用。`data_sram_wen` 在访存指令为存储指令时置高电平，表示将写存储器，其他情况置低电平。`data_sram_rdata` 是访存指令为加载指令时**延迟一个周期**返回的一个加载数据，即 LW 等指令从存储器中读取到的数据。
+
+最后四个信号（以 `debug_` 开头）是用于仿真环境的自动对比测试使用，它不需要你额外增加 CPU 功能，只需要将内部信号牵引出来（注意是回写级）。
 
 下图分别展示了取指，读取数据，写入数据对相应接口的操作（**注意图与图之间并没有关联，本图只是表达同一组接口的信号的延迟情况**）：
 
