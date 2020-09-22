@@ -23,28 +23,28 @@ MIPS 架构是一个统一编址的指令集架构，即没有 `IN`、 `OUT` 这
 
 myCPU 模块对外接口如下：
 
-| 信号              | 方向   | 位宽 | 含义                                           |
-| -                 | -      | -    | -                                              |
-| resetn            | input  | 1    | 复位信号（低使能）                             |
-| clk               | input  | 1    | 时钟信号                                       |
-| int               | input  | 6    | 中断信号（高使能，本实验中可以忽略）           |
-|                   |        |      |                                                |
-| inst_sram_en      | output | 1    | 指令通道使能                                   |
-| inst_sram_wen     | output | 1    | 是否写数据（总为 0）                           |
-| inst_sram_addr    | output | 32   | 指令地址                                       |
-| inst_sram_wdata   | output | 32   | 写入的数据（不需要）                           |
-| inst_sram_rdata   | input  | 32   | 读取的指令                                     |
-|                   |        |      |                                                |
-| data_sram_en      | output | 1    | 数据通道使能                                   |
-| data_sram_wen     | output | 1    | 是否写数据                                     |
-| data_sram_addr    | output | 32   | 数据地址                                       |
-| data_sram_wdata   |output  | 32   | 写入的数据（只有 data_sram_wen 为 1 时有意义） |
-| data_sram_rdata   | input  | 32   | 读取的数据                                     |
-|                   |        |      |                                                |
-| debug_wb_pc       | output | 32   | 不需要                                         |
-| debug_wb_rf_wen   | output | 32   | 不需要                                         |
-| debug_wb_rf_wnum  | output | 32   | 不需要                                         |
-| debug_wb_rf_wdata | output | 32   | 不需要                                         |
+| 信号              | 方向   | 位宽 | 含义                                                                              |
+| -                 | -      | -    | -                                                                                 |
+| resetn            | input  | 1    | 复位信号（低使能）                                                                |
+| clk               | input  | 1    | 时钟信号                                                                          |
+| int               | input  | 6    | 中断信号（高使能，本实验中可以忽略）                                              |
+|                   |        |      |                                                                                   |
+| inst_sram_en      | output | 1    | 指令通道使能                                                                      |
+| inst_sram_wen     | output | 4    | 是否写数据（总为 `4'b0000`）                                                      |
+| inst_sram_addr    | output | 32   | 指令地址                                                                          |
+| inst_sram_wdata   | output | 32   | 写入的数据（不需要）                                                              |
+| inst_sram_rdata   | input  | 32   | 读取的指令                                                                        |
+|                   |        |      |                                                                                   |
+| data_sram_en      | output | 1    | 数据通道使能                                                                      |
+| data_sram_wen     | output | 4    | 写入地址的有效字节，比如 `4'b1111` 表示 32 位全有效、 `4'b0001` 只会写入最低 8 位 |
+| data_sram_addr    | output | 32   | 数据地址                                                                          |
+| data_sram_wdata   | output | 32   | 写入的数据（只有 data_sram_wen 为 1 时有意义）                                    |
+| data_sram_rdata   | input  | 32   | 读取的数据                                                                        |
+|                   |        |      |                                                                                   |
+| debug_wb_pc       | output | 32   | 不需要                                                                            |
+| debug_wb_rf_wen   | output | 32   | 不需要                                                                            |
+| debug_wb_rf_wnum  | output | 32   | 不需要                                                                            |
+| debug_wb_rf_wdata | output | 32   | 不需要                                                                            |
 
 控制信号主要为 `rst` 和 `clk` 信号，其中一个提供低使能的复位信号，一个提供时钟信号以同步 CPU。
 
