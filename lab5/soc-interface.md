@@ -14,6 +14,11 @@ MIPS 架构是一个统一编址的指令集架构，即没有 `IN`、 `OUT` 这
 因而上述架构图中会有一个 `bridge` 模块，该模块是用来确定读写的是数据存储器还是外设。该模块的工作原理就是通过地址来区分，本实验中，设定外设的地址空间是 **`0xbfaf_0000 ~ 0xbfaf_ffff`**，因此，当访存指令给出的访问地址是在该范围内时即说明要访问外设，`bridge` 会控制外设读写而不是数据存储器，反之亦然。 
 
 
+## 对 CPU 进行修改
+
+1. 修改顶层模块接口并对接接口时序
+2. 修改内存映射
+
 ### 接口定义
 
 myCPU 模块对外接口如下：
@@ -54,3 +59,54 @@ myCPU 模块对外接口如下：
 ![](../img/lab5/read_data.svg)
 
 ![](../img/lab5/write_data.svg)
+### 修改内存映射
+
+#### TL;DR
+
+在数据和指令地址送出之前，把最终的地址高三位抹 0 就行。
+
+```
+// e.g.
+0xbfc0_0000 -> 0x1fc0_0000
+```
+
+
+#### 更多解释
+
+如果你阅读了 `bridge_1x2.v`（用于判定访存是走的外设还是数据存储器） 的代码，你会发现如下定义：
+
+```verilog
+`define CONF_ADDR_BASE 32'h1faf_0000
+`define CONF_ADDR_MASK 32'hffff_0000
+
+// ...
+
+assign sel_conf = (cpu_data_addr & `CONF_ADDR_MASK) == `CONF_ADDR_BASE;
+
+// ...
+
+always @ (posedge clk) begin
+    if (reset) begin
+        sel_sram_r <= 1'b0;
+        sel_conf_r <= 1'b0;
+    end else begin
+        sel_sram_r <= sel_sram;
+        sel_conf_r <= sel_conf;
+    end
+end
+
+assign cpu_data_rdata = {32{sel_sram_r}} & data_sram_rdata
+                          | {32{sel_conf_r}} & confreg_rdata;
+```
+
+
+为什么用于比较的 `CONF_ADDR_BASE` 不是 `0xbfaf_0000` 而是 `0x1faf_0000`。
+
+原因在于 MIPS 规范中的内存地址映射。
+
+![](../img/lab5/2020-09-22-seg-map.png)
+![](../img/lab5/2020-09-22-seg-map-zh.png)
+
+以上两图中的虚拟地址是 CPU 内部的地址，而物理地址是送出顶层模块的地址。
+
+本 SOC 遵守 MIPS 规范考虑到了地址映射，因此 CPU 编写者也需要注意进行转换。
