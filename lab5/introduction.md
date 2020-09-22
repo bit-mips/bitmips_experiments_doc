@@ -81,6 +81,8 @@ git clone https://github.com/bit-mips/bitmips_experiments.git
 
 ### 仿真环境运行自动对比
 
+**该对比测试会对执行的（几乎）每条指令进行测试，比下板测试更加方便且精确。**
+
 直接点击 `Run Simulation`
 
 然后运行并观察下方 `Tcl Console` 打印内容。
@@ -97,7 +99,7 @@ git clone https://github.com/bit-mips/bitmips_experiments.git
 
 当运行信号和测试用例有不一致的情况时，仿真会自动停止在错误处，并打印对比信息。
 
-在上图中我们能看到测试文件对比了 PC 、回写的寄存器编号与地址，通过这些信息，你可以进行问题排查。
+在上图中我们能看到测试文件对比了 PC 、回写的寄存器编号与地址。通过这些信息，你可以进行问题排查。
 同时，也可以通过停止时已经生成的波形信号进行问题查找。
 
 ### 下板跑测试用例
