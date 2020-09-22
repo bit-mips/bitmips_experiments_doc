@@ -33,8 +33,8 @@ myCPU 模块对外接口如下：
 | data_sram_en      | output | 1    | 数据通道使能                                   |
 | data_sram_wen     | output | 1    | 是否写数据                                     |
 | data_sram_addr    | output | 32   | 数据地址                                       |
-| data_sram_wdata   | input  | 32   | 写入的数据（只有 data_sram_wen 为 1 时有意义） |
-| data_sram_rdata   | output | 32   | 读取的数据                                     |
+| data_sram_wdata   |output  | 32   | 写入的数据（只有 data_sram_wen 为 1 时有意义） |
+| data_sram_rdata   | input  | 32   | 读取的数据                                     |
 |                   |        |      |                                                |
 | debug_wb_pc       | output | 32   | 不需要                                         |
 | debug_wb_rf_wen   | output | 32   | 不需要                                         |
