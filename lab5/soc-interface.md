@@ -44,7 +44,7 @@ myCPU 模块对外接口如下：
 |                   |        |      |                                                                                                                   |
 | debug_wb_pc       | output | 32   | 写回级(多周期最后一级)的 PC,因而需要在你的 CPU 里将 PC 一路带到写回级                                             |
 | debug_wb_rf_wen   | output | 4    | 写回级写寄存器堆(regfiles)的写使能,为字节写使能,如果 mycpu 写 regfiles 为单字节写使能,则将写使能扩展成 4 位即可。 |
-| debug_wb_rf_wnum  | output | 32   | 写回级写 regfiles 的目的寄存器号                                                                                  |
+| debug_wb_rf_wnum  | output | 5    | 写回级写 regfiles 的目的寄存器号                                                                                  |
 | debug_wb_rf_wdata | output | 32   | 写回级写 regfiles 的写数据                                                                                        |
 
 控制信号主要为 `rst` 和 `clk` 信号，其中一个提供低使能的复位信号，一个提供时钟信号以同步 CPU。
